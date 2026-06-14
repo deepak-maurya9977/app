@@ -31,7 +31,7 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <Link to="/" className="inline-block">
               <span className="text-2xl font-display font-bold">
-                <span className="text-primary">e</span>committra
+                <span className="text-primary">e</span>Committra
               </span>
             </Link>
             <p className="mt-3 text-sm text-white/70 leading-relaxed">
