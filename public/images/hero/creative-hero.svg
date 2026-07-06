@@ -1,0 +1,15 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="675" rx="24" fill="#16213E" />
+  <rect x="80" y="80" width="1020" height="515" rx="24" fill="#0F3460" />
+  <rect x="120" y="130" width="460" height="100" rx="16" fill="#FF6B35" opacity="0.95" />
+  <rect x="120" y="250" width="540" height="380" rx="24" fill="#1A1A2E" />
+  <circle cx="840" cy="260" r="110" fill="#FFD700" opacity="0.95" />
+  <rect x="740" y="380" width="260" height="200" rx="20" fill="#FF6B35" opacity="0.6" />
+  <rect x="780" y="410" width="180" height="20" rx="10" fill="#FFFFFF" />
+  <rect x="780" y="450" width="120" height="20" rx="10" fill="#FFFFFF" opacity="0.8" />
+  <rect x="780" y="490" width="200" height="20" rx="10" fill="#FFFFFF" opacity="0.6" />
+  <rect x="140" y="300" width="300" height="22" rx="11" fill="#E2E8F0" />
+  <rect x="140" y="340" width="340" height="22" rx="11" fill="#E2E8F0" />
+  <rect x="140" y="380" width="260" height="22" rx="11" fill="#E2E8F0" />
+  <text x="120" y="100" fill="#FFFFFF" font-size="32" font-family="Inter, sans-serif" font-weight="700">Creative content</text>
+</svg>

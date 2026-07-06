@@ -11,10 +11,16 @@ import ScrollReveal from '@/components/ScrollReveal';
 import StatsCounter from '@/components/StatsCounter';
 import FAQAccordion from '@/components/FAQAccordion';
 import ContactForm from '@/components/ContactForm';
+import SchemaInjector from '@/seo/SchemaInjector';
 import {
   BUSINESS, HOME_SERVICES, WHY_CHOOSE_US, PROCESS_STEPS,
-  TESTIMONIALS, FAQ_HOME, PLATFORM_LOGOS,
+  TESTIMONIALS, FAQ_HOME, PLATFORM_LOGOS, NAP,
 } from '@/lib/constants';
+import type {
+  OrganizationSchema,
+  LocalBusinessSchema,
+  FAQPageSchema,
+} from '@/seo/types';
 
 const iconMap: Record<string, React.ReactNode> = {
   ShoppingCart: <ShoppingCart className="w-6 h-6 text-primary" />,
@@ -49,8 +55,79 @@ const getAvatarColor = (name: string) => {
 export default function Home() {
   const heroRef = useRef(null);
 
+  // --- Structured Data (Requirements 5.1, 5.2, 5.3, 5.5) ---
+  const orgSchema: OrganizationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: NAP.name,
+    url: NAP.website,
+    logo: `${NAP.website}/logo.png`,
+    description:
+      'eCommittra is a full-service eCommerce growth partner helping Indian businesses scale on Amazon, Flipkart, Meesho, JioMart and other major marketplaces through account management, digital marketing, website development, and more.',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: NAP.streetAddress,
+      addressLocality: NAP.addressLocality,
+      addressRegion: NAP.addressRegion,
+      postalCode: NAP.postalCode,
+      addressCountry: NAP.addressCountry,
+    },
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: NAP.telephone,
+      contactType: 'customer service',
+      availableLanguage: 'English',
+    },
+    sameAs: [
+      'https://www.facebook.com/ecommittra',
+      'https://www.instagram.com/ecommittra',
+      'https://www.youtube.com/@ecommittra',
+      'https://www.linkedin.com/company/ecommittra',
+    ],
+  };
+
+  const localBizSchema: LocalBusinessSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: NAP.name,
+    image: `${NAP.website}/logo.png`,
+    telephone: NAP.telephone,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: NAP.streetAddress,
+      addressLocality: NAP.addressLocality,
+      addressRegion: NAP.addressRegion,
+      postalCode: NAP.postalCode,
+      addressCountry: NAP.addressCountry,
+    },
+    openingHoursSpecification: {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      opens: '09:00',
+      closes: '18:00',
+    },
+    priceRange: '₹₹',
+  };
+
+  const faqSchema: FAQPageSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: FAQ_HOME.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  };
+
   return (
     <div>
+      <SchemaInjector
+        schemas={[orgSchema, localBizSchema, faqSchema]}
+        canonical="https://ecommittra.com/"
+      />
       {/* HERO SECTION */}
       <section ref={heroRef} className="relative min-h-[100dvh] gradient-hero overflow-hidden flex items-center">
         {/* Animated Grid Background */}
@@ -61,6 +138,16 @@ export default function Home() {
           `,
           backgroundSize: '60px 60px',
         }} />
+
+        {/* Decorative blobs */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute w-[600px] h-[600px] top-[-200px] right-[-200px] rounded-full" style={{
+            background: 'radial-gradient(circle, rgba(255, 107, 43, 0.08) 0%, transparent 70%)'
+          }} />
+          <div className="absolute w-[400px] h-[400px] bottom-[-100px] left-[-100px] rounded-full" style={{
+            background: 'radial-gradient(circle, rgba(0, 200, 150, 0.07) 0%, transparent 70%)'
+          }} />
+        </div>
 
         {/* Floating Decorative Elements */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -83,6 +170,31 @@ export default function Home() {
               }}
             />
           ))}
+        </div>
+
+        {/* Floating Metric Badges */}
+        <div className="hero-badge hero-badge--top-right animate-float" style={{ animationDelay: '0s' }}>
+          <span className="badge-icon">🛒</span>
+          <div>
+            <span className="badge-number">500+</span>
+            <span className="badge-label">Happy Sellers</span>
+          </div>
+        </div>
+
+        <div className="hero-badge hero-badge--bottom-left animate-float" style={{ animationDelay: '0.5s' }}>
+          <span className="badge-icon">⭐</span>
+          <div>
+            <span className="badge-number">4.9/5</span>
+            <span className="badge-label">Avg Rating</span>
+          </div>
+        </div>
+
+        <div className="hero-badge hero-badge--mid-right animate-float" style={{ animationDelay: '1s' }}>
+          <span className="badge-icon">📈</span>
+          <div>
+            <span className="badge-number">3x Growth</span>
+            <span className="badge-label">Avg Sales Boost</span>
+          </div>
         </div>
 
         <div className="container-main relative z-10 py-20">
@@ -111,14 +223,14 @@ export default function Home() {
               <div className="mt-8 flex flex-wrap gap-4">
                 <Link
                   to="/contact"
-                  className="inline-flex items-center gap-2 bg-primary text-white font-medium px-7 py-3.5 rounded-lg hover:bg-primary-dark transition-all hover:shadow-cta hover:scale-[1.02]"
+                  className="inline-flex items-center gap-2 bg-primary text-white font-medium px-7 py-3.5 rounded-full hover:bg-primary-dark transition-all hover:shadow-primary hover:-translate-y-0.5 animate-pulse-ring"
                 >
                   <Sparkles className="w-5 h-5" />
                   Get My Free Growth Plan
                 </Link>
                 <Link
                   to="/services"
-                  className="inline-flex items-center gap-2 border border-white/40 text-white font-medium px-7 py-3.5 rounded-lg hover:bg-white hover:text-secondary transition-all"
+                  className="inline-flex items-center gap-2 border-2 border-white/40 text-white font-medium px-7 py-3.5 rounded-full hover:bg-white hover:text-secondary transition-all hover:border-white"
                 >
                   Explore What We Do
                 </Link>
@@ -171,18 +283,30 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* TRUSTED BY SECTION */}
-      <section className="py-10 bg-white border-b border-gray-100">
+      {/* TRUSTED BY SECTION — MARKETPLACE TRUST STRIP */}
+      <section className="py-12 bg-white border-b border-gray-100">
         <div className="container-main">
-          <p className="text-center text-xs font-utility font-bold uppercase tracking-[2px] text-text-secondary mb-6">
+          <p className="text-center text-xs font-utility font-bold uppercase tracking-[2px] text-text-secondary mb-8">
             Your Brand. Every Marketplace.
           </p>
-          <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10">
-            {PLATFORM_LOGOS.map((p) => (
-              <div key={p.name} className="group flex items-center gap-2 text-text-muted hover:text-primary transition-colors">
-                <span className="text-sm md:text-base font-display font-semibold tracking-wide">{p.name}</span>
-              </div>
-            ))}
+          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 px-4">
+            {PLATFORM_LOGOS.slice(0, 4).map((p) => {
+              return (
+                <div
+                  key={p.name}
+                  className="group flex flex-col items-center gap-3 cursor-pointer transition-all duration-300 hover:scale-110"
+                >
+                  <div className="w-16 h-16 rounded-lg flex items-center justify-center bg-white shadow-sm transition-all duration-300 filter grayscale group-hover:grayscale-0 p-3">
+                    {p.logo ? (
+                      <img src={p.logo} alt={p.name} className="w-full h-full object-contain" />
+                    ) : (
+                      <span className="font-display font-bold text-sm text-text-primary">{p.initials}</span>
+                    )}
+                  </div>
+                  <span className="text-xs md:text-sm font-display font-semibold tracking-wide text-text-primary text-center">{p.name}</span>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -268,14 +392,19 @@ export default function Home() {
             {HOME_SERVICES.map((service, i) => (
               <ScrollReveal key={service.title} delay={i * 0.08}>
                 <Link to={service.href} className="group block">
-                  <div className="bg-white rounded-xl p-6 shadow-card border-l-4 border-l-primary hover:shadow-card-hover hover:-translate-y-1 transition-all h-full">
-                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
-                      {iconMap[service.icon]}
+                  <div className="bg-white rounded-xl p-6 shadow-card border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 h-full relative overflow-hidden">
+                    {/* Top accent bar */}
+                    <div className="absolute top-0 left-0 right-0 h-[3px] bg-primary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                    
+                    <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:scale-105 group-hover:-rotate-3 transition-all duration-300">
+                      <div className="group-hover:filter group-hover:brightness-0 group-hover:invert">
+                        {iconMap[service.icon]}
+                      </div>
                     </div>
                     <h3 className="font-semibold text-lg text-text-primary mb-2">{service.title}</h3>
                     <p className="text-sm text-text-secondary leading-relaxed line-clamp-2">{service.description}</p>
                     <span className="inline-flex items-center gap-1 mt-4 text-sm font-medium text-primary group-hover:gap-2 transition-all">
-                      Know More → <ArrowRight className="w-4 h-4" />
+                      Know More <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                     </span>
                   </div>
                 </Link>
@@ -290,10 +419,10 @@ export default function Home() {
         <div className="container-main">
           <ScrollReveal>
             <div className="text-center max-w-2xl mx-auto mb-12">
-              <h2 className="text-3xl md:text-4xl font-display font-semibold">
+              <h2 className="text-3xl md:text-4xl font-display font-bold drop-shadow-lg">
                 Why 500+ Sellers Choose eCommittra
               </h2>
-              <p className="mt-4 text-white/70">
+              <p className="mt-4 text-white/90 text-lg">
                 While others promise results, we build them — with a team that treats your business like our own and never stops working until the numbers move.
               </p>
             </div>
@@ -358,7 +487,7 @@ export default function Home() {
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-white overflow-hidden">
         <div className="container-main">
           <ScrollReveal>
             <h2 className="text-3xl md:text-4xl font-display font-semibold text-text-primary text-center mb-12">
@@ -366,29 +495,30 @@ export default function Home() {
             </h2>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {TESTIMONIALS.map((t, i) => (
-              <ScrollReveal key={t.name} delay={i * 0.1}>
-                <div className="bg-white rounded-2xl p-6 md:p-8 shadow-card border border-gray-50">
-                  <Quote className="w-10 h-10 text-primary/30 mb-4" />
-                  <div className="flex gap-1 mb-4">
+          {/* Auto-scrolling marquee */}
+          <div className="testimonials-track-wrapper" aria-label="Customer testimonials">
+            <div className="testimonials-track">
+              {[...TESTIMONIALS, ...TESTIMONIALS].map((t, i) => (
+                <div key={`${t.name}-${i}`} className="testimonial-card">
+                  <Quote className="w-8 h-8 text-primary/30 mb-3" />
+                  <div className="flex gap-1 mb-3">
                     {[...Array(t.rating)].map((_, j) => (
-                      <Star key={j} className="w-4 h-4 text-accent fill-accent" />
+                      <Star key={j} className="w-3.5 h-3.5 text-accent fill-accent" />
                     ))}
                   </div>
-                  <p className="text-text-primary italic leading-relaxed mb-6">&ldquo;{t.text}&rdquo;</p>
-                  <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                    <div className={`w-11 h-11 rounded-full ${getAvatarColor(t.name)} flex items-center justify-center text-white font-semibold text-sm`}>
+                  <p className="text-text-secondary italic leading-relaxed mb-4 text-sm">&ldquo;{t.text}&rdquo;</p>
+                  <div className="flex items-center gap-2 pt-3 border-t border-gray-100">
+                    <div className={`w-9 h-9 rounded-full ${getAvatarColor(t.name)} flex items-center justify-center text-white font-semibold text-xs`}>
                       {getInitials(t.name)}
                     </div>
                     <div>
-                      <p className="font-semibold text-sm text-text-primary">{t.name}</p>
-                      <p className="text-xs text-text-secondary">{t.role}</p>
+                      <p className="font-semibold text-xs text-text-primary">{t.name}</p>
+                      <p className="text-[10px] text-text-muted">{t.role}</p>
                     </div>
                   </div>
                 </div>
-              </ScrollReveal>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>

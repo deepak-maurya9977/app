@@ -1,0 +1,14 @@
+# robots.txt for eCommittra
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://ecommittra.com/sitemap.xml
+
+# Crawl-delay (optional, to prevent overloading)
+Crawl-delay: 1
+
+# Disallow specific paths if any
+# Disallow: /admin/
+# Disallow: /private/

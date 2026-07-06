@@ -1,0 +1,14 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="675" rx="24" fill="#0F3460" />
+  <rect x="120" y="120" width="960" height="435" rx="24" fill="#16213E" />
+  <rect x="180" y="180" width="260" height="260" rx="24" fill="#1A1A2E" />
+  <rect x="460" y="180" width="260" height="260" rx="24" fill="#1A1A2E" />
+  <rect x="740" y="180" width="260" height="260" rx="24" fill="#1A1A2E" />
+  <circle cx="310" cy="290" r="44" fill="#FFD700" />
+  <circle cx="590" cy="290" r="44" fill="#FF6B35" />
+  <circle cx="870" cy="290" r="44" fill="#10B981" />
+  <rect x="180" y="470" width="260" height="40" rx="20" fill="#FFFFFF" opacity="0.16" />
+  <rect x="460" y="470" width="260" height="40" rx="20" fill="#FFFFFF" opacity="0.16" />
+  <rect x="740" y="470" width="260" height="40" rx="20" fill="#FFFFFF" opacity="0.16" />
+  <text x="180" y="120" fill="#FFFFFF" font-size="32" font-family="Inter, sans-serif" font-weight="700">Team photo placeholder</text>
+</svg>

@@ -1,12 +1,25 @@
+export const NAP = {
+  name: 'eCommittra',
+  streetAddress: '[full street address TBD by operations team]', // TODO: confirm with ops
+  addressLocality: 'Lucknow',
+  addressRegion: 'Uttar Pradesh',
+  postalCode: '[postal code TBD]', // TODO: confirm with ops
+  addressCountry: 'IN' as const,
+  telephone: '+91-8821953915',
+  telephone2: '+91-7489881387',
+  email: 'support@ecommittra.com',
+  website: 'https://ecommittra.com',
+};
+
 export const BUSINESS = {
   name: "eCommittra",
   tagline: "Your Committed Partner for eCommerce Growth",
   phone1: "+91 8821953915",
   phone2: "+91 7489881387",
-  phone1Label: "Rahul Dwivedi (Owner)",
+  phone1Label: "Rahul Dwivedi (Founder & Owner)",
   phone2Label: "Himanshu Mishra (CEO & Co-Owner)",
   whatsappLink: "https://wa.me/918821953915?text=Hi%20eCommittra%21%20I%20want%20to%20grow%20my%20online%20business.%20Can%20we%20talk%3F",
-  email: "contact@ecommittra.com",
+  email: "support@ecommittra.com",
   address: "India",
   year: "2025",
 };
@@ -315,10 +328,10 @@ export const JOB_POSITIONS = [
 ];
 
 export const PLATFORM_LOGOS = [
-  { name: "Amazon", initials: "Am" },
-  { name: "Flipkart", initials: "Fk" },
-  { name: "Meesho", initials: "Ms" },
-  { name: "JioMart", initials: "JM" },
+  { name: "Amazon", logo: "/amazon.png" },
+  { name: "Flipkart", logo: "/flipkart.png" },
+  { name: "Meesho", logo: "/meesho.png" },
+  { name: "JioMart", logo: "/jiomart.webp" },
   { name: "AJIO", initials: "AJ" },
   { name: "Nykaa", initials: "Nk" },
   { name: "Myntra", initials: "My" },

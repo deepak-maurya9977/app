@@ -3,7 +3,9 @@ import HeroBanner from '@/components/HeroBanner';
 import ScrollReveal from '@/components/ScrollReveal';
 import FAQAccordion from '@/components/FAQAccordion';
 import ContactForm from '@/components/ContactForm';
-import { BUSINESS, PLATFORM_LOGOS } from '@/lib/constants';
+import SchemaInjector from '@/seo/SchemaInjector';
+import { BUSINESS, PLATFORM_LOGOS, NAP } from '@/lib/constants';
+import type { ServiceSchema, FAQPageSchema } from '@/seo/types';
 
 interface ServicePageTemplateProps {
   serviceName: string;
@@ -39,8 +41,39 @@ export default function ServicePageTemplate({
   faq,
   platforms = ['Amazon', 'Flipkart', 'Meesho', 'JioMart'],
 }: ServicePageTemplateProps) {
+  // --- Structured Data (Requirements 6.1, 6.2, 6.4) ---
+  const TARGET_CITIES = ['India', 'Delhi', 'Mumbai', 'Bangalore', 'Hyderabad', 'Chennai'];
+
+  const serviceSchema: ServiceSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: serviceName,
+    description: overview,
+    provider: {
+      '@type': 'Organization',
+      name: NAP.name,
+      url: NAP.website,
+    },
+    serviceType: serviceName,
+    areaServed: TARGET_CITIES,
+  };
+
+  const faqPageSchema: FAQPageSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  };
+
   return (
     <div>
+      <SchemaInjector schemas={[serviceSchema, faqPageSchema]} />
       <HeroBanner
         title={serviceName}
         subtitle={heroDescription}
@@ -56,7 +89,7 @@ export default function ServicePageTemplate({
         <div className="container-main">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <ScrollReveal>
-              <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl p-8 md:p-12 flex items-center justify-center min-h-[300px]">
+              <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl p-8 md:p-12 flex items-center justify-center min-h-[300px] animate-on-scroll">
                 <div className="text-center">
                   <span className="text-6xl md:text-8xl font-display font-bold text-gradient-orange">
                     {serviceName.charAt(0)}
@@ -66,7 +99,7 @@ export default function ServicePageTemplate({
               </div>
             </ScrollReveal>
             <ScrollReveal delay={0.1}>
-              <div>
+              <div className="animate-on-scroll">
                 <span className="text-xs font-utility font-bold uppercase tracking-wider text-primary">
                   Service Overview
                 </span>
@@ -99,9 +132,12 @@ export default function ServicePageTemplate({
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {benefits.map((b, i) => (
               <ScrollReveal key={i} delay={i * 0.1}>
-                <div className="bg-white rounded-xl p-6 shadow-card hover:shadow-card-hover transition-shadow">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                    {iconMap[b.icon] || <Check className="w-6 h-6 text-primary" />}
+                <div className="bg-white rounded-xl p-6 shadow-card border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group">
+                  <div className="absolute top-0 left-0 right-0 h-[3px] bg-primary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                  <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary group-hover:scale-105 group-hover:-rotate-3 transition-all duration-300">
+                    <div className="group-hover:filter group-hover:brightness-0 group-hover:invert">
+                      {iconMap[b.icon] || <Check className="w-6 h-6 text-primary" />}
+                    </div>
                   </div>
                   <h3 className="font-semibold text-lg text-text-primary mb-2">{b.title}</h3>
                   <p className="text-sm text-text-secondary leading-relaxed">{b.description}</p>
@@ -151,8 +187,12 @@ export default function ServicePageTemplate({
             {PLATFORM_LOGOS.filter(p => platforms.includes(p.name)).map((p) => (
               <ScrollReveal key={p.name}>
                 <div className="group flex flex-col items-center gap-2">
-                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-xl bg-white shadow-card flex items-center justify-center text-text-muted group-hover:text-primary transition-colors">
-                    <span className="text-lg md:text-xl font-display font-bold">{p.initials}</span>
+                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-xl bg-white shadow-card flex items-center justify-center p-3">
+                    {p.logo ? (
+                      <img src={p.logo} alt={p.name} className="w-full h-full object-contain" />
+                    ) : (
+                      <span className="text-lg md:text-xl font-display font-bold text-text-muted group-hover:text-primary transition-colors">{p.initials}</span>
+                    )}
                   </div>
                   <span className="text-xs text-text-secondary font-medium">{p.name}</span>
                 </div>

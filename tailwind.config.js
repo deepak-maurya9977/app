@@ -26,6 +26,12 @@ module.exports = {
           DEFAULT: "#FFD700",
           foreground: "#1A1A2E",
         },
+        marketplace: {
+          amazon: "#FF9900",
+          flipkart: "#2874F0",
+          meesho: "#EA2B8C",
+          jiomart: "#0F5FFF",
+        },
         surface: "#F8F9FA",
         muted: {
           DEFAULT: "hsl(var(--muted))",

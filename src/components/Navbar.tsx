@@ -43,7 +43,7 @@ export default function Navbar() {
           'fixed top-0 left-0 right-0 z-40 transition-all duration-300',
           isTransparent
             ? 'bg-transparent'
-            : 'bg-white/95 backdrop-blur-md shadow-nav'
+            : 'bg-white/97 backdrop-blur-md shadow-md'
         )}
       >
         <div className="container-main">
@@ -76,7 +76,7 @@ export default function Navbar() {
                     to={link.href}
                     className={cn(
                       'text-sm font-medium transition-colors flex items-center gap-1',
-                      isTransparent ? 'text-white/90 hover:text-white' : 'text-text-primary hover:text-primary',
+                      isTransparent ? 'text-white hover:text-primary' : 'text-text-primary hover:text-primary',
                       location.pathname === link.href && 'text-primary'
                     )}
                   >
@@ -153,7 +153,7 @@ export default function Navbar() {
             <div className="hidden lg:flex items-center gap-4">
               <a
                 href="tel:+918821953915"
-                className="inline-flex items-center gap-2 bg-primary text-white text-sm font-medium px-5 py-2.5 rounded-full hover:bg-primary-dark transition-all hover:shadow-cta hover:scale-[1.02]"
+                className="inline-flex items-center gap-2 bg-primary text-white text-sm font-medium px-5 py-2.5 rounded-full hover:bg-primary-dark transition-all hover:shadow-primary hover:-translate-y-0.5 animate-pulse-ring"
               >
                 <Phone className="w-4 h-4" />
                 Call Now

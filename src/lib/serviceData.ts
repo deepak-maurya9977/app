@@ -1,3 +1,13 @@
+export type ServiceFamily =
+  | 'marketplace-amazon'
+  | 'marketplace-flipkart'
+  | 'marketplace-meesho'
+  | 'marketplace-jiomart'
+  | 'creative'
+  | 'operations'
+  | 'marketing'
+  | 'web';
+
 export interface ServiceData {
   serviceName: string;
   heroDescription: string;
@@ -6,6 +16,7 @@ export interface ServiceData {
   benefits: { title: string; description: string; icon: string }[];
   process: { step: number; title: string; description: string }[];
   faq: { question: string; answer: string }[];
+  family?: ServiceFamily;
   platforms?: string[];
 }
 
@@ -39,6 +50,7 @@ export const servicePages: Record<string, ServiceData> = {
       { question: 'How long does Amazon account setup take?', answer: 'Account setup typically takes 3-7 business days, depending on document verification speed and Amazon\'s review process.' },
       { question: 'Can you launch accounts for individuals too?', answer: 'Yes, we support both individual and business entity (proprietorship, partnership, Pvt Ltd) Amazon seller accounts.' },
     ],
+    family: 'marketplace-amazon',
     platforms: ['Amazon'],
   },
   'flipkart-account-launch': {
@@ -70,6 +82,7 @@ export const servicePages: Record<string, ServiceData> = {
       { question: 'How is Flipkart different from Amazon?', answer: 'Flipkart has different listing requirements, fee structures, and customer demographics. We optimize for both platforms uniquely.' },
       { question: 'Can I sell on both Amazon and Flipkart?', answer: 'Absolutely! We recommend multi-platform selling and can launch both accounts simultaneously.' },
     ],
+    family: 'marketplace-flipkart',
     platforms: ['Flipkart'],
   },
   'meesho-account-launch': {
@@ -100,6 +113,7 @@ export const servicePages: Record<string, ServiceData> = {
       { question: 'How is selling on Meesho different?', answer: 'Meesho uses a reseller model where individuals share your products. Pricing and packaging must account for this.' },
       { question: 'What products sell best on Meesho?', answer: 'Fashion, home decor, kitchen items, and accessories perform very well on Meesho.' },
     ],
+    family: 'marketplace-meesho',
     platforms: ['Meesho'],
   },
   'jiomart-account-launch': {
@@ -130,6 +144,7 @@ export const servicePages: Record<string, ServiceData> = {
       { question: 'How do I become a JioMart seller?', answer: 'Register on JioMart seller portal with GST, PAN, and bank details. We handle the entire process for you.' },
       { question: 'What are JioMart\'s commission rates?', answer: 'Commission rates vary by category, typically between 5-15%. We help you price accordingly.' },
     ],
+    family: 'marketplace-jiomart',
     platforms: ['JioMart'],
   },
   'amazon-account-management': {
@@ -161,6 +176,7 @@ export const servicePages: Record<string, ServiceData> = {
       { question: 'How do you improve sales?', answer: 'We use keyword optimization, A/B testing, competitive analysis, and data-driven pricing strategies to boost visibility and conversions.' },
       { question: 'Can I see results quickly?', answer: 'Most clients see improvements within 30-60 days, depending on their product category and competition level.' },
     ],
+    family: 'marketplace-amazon',
     platforms: ['Amazon'],
   },
   'flipkart-account-management': {
@@ -192,6 +208,7 @@ export const servicePages: Record<string, ServiceData> = {
       { question: 'Do you handle Flipkart Fulfillment?', answer: 'Yes, we help manage your Flipkart Fulfillment (FKF) inventory and logistics.' },
       { question: 'What metrics do you track?', answer: 'We track listing quality, search ranking, conversion rate, return rate, customer ratings, and overall growth.' },
     ],
+    family: 'marketplace-flipkart',
     platforms: ['Flipkart'],
   },
   'meesho-account-management': {
@@ -223,6 +240,7 @@ export const servicePages: Record<string, ServiceData> = {
       { question: 'What is the typical return rate on Meesho?', answer: 'Return rates on Meesho are typically 15-25%. We help reduce this through better product descriptions and quality control.' },
       { question: 'Can you manage high order volumes?', answer: 'Yes, we specialize in helping suppliers scale from hundreds to thousands of daily orders.' },
     ],
+    family: 'marketplace-meesho',
     platforms: ['Meesho'],
   },
   'jiomart-account-management': {
@@ -253,6 +271,7 @@ export const servicePages: Record<string, ServiceData> = {
       { question: 'What categories perform best?', answer: 'Grocery, FMCG, electronics, fashion, and home essentials are top categories on JioMart.' },
       { question: 'How does fulfillment work?', answer: 'JioMart offers both platform fulfillment and self-ship options. We help you choose the best model.' },
     ],
+    family: 'marketplace-jiomart',
     platforms: ['JioMart'],
   },
   'amazon-advertisement': {
@@ -284,6 +303,7 @@ export const servicePages: Record<string, ServiceData> = {
       { question: 'How long before I see results?', answer: 'Initial optimizations show results within 1-2 weeks, with significant improvements by week 4.' },
       { question: 'Do you handle all ad types?', answer: 'Yes, we manage Sponsored Products, Sponsored Brands, Sponsored Display, and Stores.' },
     ],
+    family: 'marketplace-amazon',
     platforms: ['Amazon'],
   },
   'flipkart-advertisement': {
@@ -315,6 +335,7 @@ export const servicePages: Record<string, ServiceData> = {
       { question: 'How is Flipkart advertising different from Amazon?', answer: 'Flipkart has different ad formats, bidding systems, and audience behavior. We optimize specifically for Flipkart.' },
       { question: 'What budget do I need?', answer: 'We work with budgets starting from 10,000/month and scale based on performance.' },
     ],
+    family: 'marketplace-flipkart',
     platforms: ['Flipkart'],
   },
   'meesho-advertisement': {
@@ -345,6 +366,7 @@ export const servicePages: Record<string, ServiceData> = {
       { question: 'Are Meesho ads worth it?', answer: 'Yes, especially for trending categories. Ads can significantly increase your daily order volume.' },
       { question: 'What is the minimum ad budget?', answer: 'We recommend starting with 5,000-10,000/month and scaling based on results.' },
     ],
+    family: 'marketplace-meesho',
     platforms: ['Meesho'],
   },
   'jiomart-advertisement': {
@@ -375,6 +397,7 @@ export const servicePages: Record<string, ServiceData> = {
       { question: 'What products should I advertise?', answer: 'Focus on your best sellers and products with healthy margins that appeal to JioMart\'s audience.' },
       { question: 'How do you track ROI?', answer: 'We track ad spend, impressions, clicks, and attributed sales to calculate clear ROI.' },
     ],
+    family: 'marketplace-jiomart',
     platforms: ['JioMart'],
   },
   'accounting-taxation': {
@@ -406,6 +429,7 @@ export const servicePages: Record<string, ServiceData> = {
       { question: 'What GST returns do I need to file?', answer: 'Typically GSTR-1 (monthly/quarterly outward supplies), GSTR-3B (monthly summary return), and GSTR-9 (annual return).' },
       { question: 'Can you handle multiple GSTINs?', answer: 'Yes, we manage accounting and compliance for businesses with multiple GST registrations across states.' },
     ],
+    family: 'operations',
     platforms: ['Amazon', 'Flipkart', 'Meesho', 'JioMart'],
   },
   'website-development': {
@@ -530,6 +554,7 @@ export const servicePages: Record<string, ServiceData> = {
       { question: 'Can you handle bulk uploads?', answer: 'Yes, we can upload hundreds or thousands of products efficiently using bulk templates.' },
       { question: 'Do you create listings for all marketplaces?', answer: 'Yes, we create optimized listings for Amazon, Flipkart, Meesho, JioMart, AJIO, Nykaa, and Myntra.' },
     ],
+    family: 'operations',
     platforms: ['Amazon', 'Flipkart', 'Meesho', 'JioMart'],
   },
   'warehouse-facility': {
@@ -561,6 +586,7 @@ export const servicePages: Record<string, ServiceData> = {
       { question: 'Can you handle FBA prep?', answer: 'Yes, we provide complete FBA prep services including labeling, packaging, and shipment creation.' },
       { question: 'What platforms do you support?', answer: 'We support inventory management for Amazon, Flipkart, Meesho, JioMart, and your own website.' },
     ],
+    family: 'operations',
     platforms: ['Amazon', 'Flipkart', 'Meesho', 'JioMart'],
   },
   'seller-reinstatement': {
@@ -592,6 +618,7 @@ export const servicePages: Record<string, ServiceData> = {
       { question: 'What causes account suspension?', answer: 'Common reasons include policy violations, counterfeit claims, poor seller metrics, and verification issues.' },
       { question: 'Can all suspended accounts be reinstated?', answer: 'While we have a high success rate, some severe violations may result in permanent suspension. We\'ll give you an honest assessment upfront.' },
     ],
+    family: 'operations',
     platforms: ['Amazon', 'Flipkart', 'Meesho', 'JioMart'],
   },
   'product-photography': {
@@ -688,3 +715,6 @@ export const servicePages: Record<string, ServiceData> = {
     platforms: ['Amazon', 'Flipkart'],
   },
 };
+
+
+

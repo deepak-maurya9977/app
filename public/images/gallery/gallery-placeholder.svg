@@ -1,0 +1,12 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="675" rx="24" fill="#16213E" />
+  <rect x="100" y="100" width="320" height="220" rx="24" fill="#0F3460" />
+  <rect x="460" y="100" width="320" height="220" rx="24" fill="#0F3460" />
+  <rect x="820" y="100" width="320" height="220" rx="24" fill="#0F3460" />
+  <rect x="100" y="375" width="320" height="220" rx="24" fill="#0F3460" />
+  <rect x="460" y="375" width="320" height="220" rx="24" fill="#0F3460" />
+  <rect x="820" y="375" width="320" height="220" rx="24" fill="#0F3460" />
+  <rect x="140" y="140" width="80" height="26" rx="13" fill="#FFD700" />
+  <rect x="900" y="500" width="220" height="24" rx="12" fill="#FFFFFF" opacity="0.8" />
+  <text x="120" y="90" fill="#FFFFFF" font-size="32" font-family="Inter, sans-serif" font-weight="700">Gallery placeholder</text>
+</svg>

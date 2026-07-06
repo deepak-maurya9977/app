@@ -7,6 +7,10 @@ import Gallery from '@/pages/Gallery';
 import Career from '@/pages/Career';
 import Contact from '@/pages/Contact';
 
+// City landing page template and data
+import CityLandingPage from '@/pages/services/CityLandingPage';
+import { cityPages } from '@/lib/cityPageData';
+
 // Service pages
 import AmazonAccountLaunch from '@/pages/services/amazon-account-launch';
 import FlipkartAccountLaunch from '@/pages/services/flipkart-account-launch';

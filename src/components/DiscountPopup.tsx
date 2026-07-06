@@ -7,12 +7,6 @@ export default function DiscountPopup() {
 
   useEffect(() => {
     let mounted = true;
-    try {
-      const dismissed = localStorage.getItem('discount_popup_dismissed');
-      if (dismissed) return;
-    } catch (e) {
-      // ignore
-    }
 
     // fetch raw html from public folder
     fetch('/ecommittra_discount_popup_v2.html')
@@ -43,14 +37,12 @@ export default function DiscountPopup() {
       if (target.closest('[aria-label="Close popup"]')) {
         ev.stopPropagation();
         setShow(false);
-        try { localStorage.setItem('discount_popup_dismissed', '1'); } catch (e) {}
       }
     };
 
     const keyHandler = (ev: KeyboardEvent) => {
       if (ev.key === 'Escape') {
         setShow(false);
-        try { localStorage.setItem('discount_popup_dismissed', '1'); } catch (e) {}
       }
     };
 
