@@ -69,6 +69,36 @@ export default function App() {
         <Route path="/services/product-photography" element={<ProductPhotography />} />
         <Route path="/services/digital-marketing" element={<DigitalMarketing />} />
         <Route path="/services/enhance-brand-content" element={<EnhanceBrandContent />} />
+
+        {/* City landing pages — 21 routes: 7 services × 3 cities (Delhi, Mumbai, Bangalore) */}
+        {/* Amazon Account Management */}
+        <Route path="/services/amazon-account-management-delhi" element={<CityLandingPage data={cityPages['amazon-account-management-delhi']} />} />
+        <Route path="/services/amazon-account-management-mumbai" element={<CityLandingPage data={cityPages['amazon-account-management-mumbai']} />} />
+        <Route path="/services/amazon-account-management-bangalore" element={<CityLandingPage data={cityPages['amazon-account-management-bangalore']} />} />
+        {/* Flipkart Account Management */}
+        <Route path="/services/flipkart-account-management-delhi" element={<CityLandingPage data={cityPages['flipkart-account-management-delhi']} />} />
+        <Route path="/services/flipkart-account-management-mumbai" element={<CityLandingPage data={cityPages['flipkart-account-management-mumbai']} />} />
+        <Route path="/services/flipkart-account-management-bangalore" element={<CityLandingPage data={cityPages['flipkart-account-management-bangalore']} />} />
+        {/* Meesho Account Management */}
+        <Route path="/services/meesho-account-management-delhi" element={<CityLandingPage data={cityPages['meesho-account-management-delhi']} />} />
+        <Route path="/services/meesho-account-management-mumbai" element={<CityLandingPage data={cityPages['meesho-account-management-mumbai']} />} />
+        <Route path="/services/meesho-account-management-bangalore" element={<CityLandingPage data={cityPages['meesho-account-management-bangalore']} />} />
+        {/* JioMart Account Management */}
+        <Route path="/services/jiomart-account-management-delhi" element={<CityLandingPage data={cityPages['jiomart-account-management-delhi']} />} />
+        <Route path="/services/jiomart-account-management-mumbai" element={<CityLandingPage data={cityPages['jiomart-account-management-mumbai']} />} />
+        <Route path="/services/jiomart-account-management-bangalore" element={<CityLandingPage data={cityPages['jiomart-account-management-bangalore']} />} />
+        {/* Amazon Advertisement */}
+        <Route path="/services/amazon-advertisement-delhi" element={<CityLandingPage data={cityPages['amazon-advertisement-delhi']} />} />
+        <Route path="/services/amazon-advertisement-mumbai" element={<CityLandingPage data={cityPages['amazon-advertisement-mumbai']} />} />
+        <Route path="/services/amazon-advertisement-bangalore" element={<CityLandingPage data={cityPages['amazon-advertisement-bangalore']} />} />
+        {/* Digital Marketing */}
+        <Route path="/services/digital-marketing-delhi" element={<CityLandingPage data={cityPages['digital-marketing-delhi']} />} />
+        <Route path="/services/digital-marketing-mumbai" element={<CityLandingPage data={cityPages['digital-marketing-mumbai']} />} />
+        <Route path="/services/digital-marketing-bangalore" element={<CityLandingPage data={cityPages['digital-marketing-bangalore']} />} />
+        {/* Website Development */}
+        <Route path="/services/website-development-delhi" element={<CityLandingPage data={cityPages['website-development-delhi']} />} />
+        <Route path="/services/website-development-mumbai" element={<CityLandingPage data={cityPages['website-development-mumbai']} />} />
+        <Route path="/services/website-development-bangalore" element={<CityLandingPage data={cityPages['website-development-bangalore']} />} />
       </Route>
     </Routes>
   );

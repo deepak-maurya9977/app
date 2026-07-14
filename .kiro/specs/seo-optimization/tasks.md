@@ -93,7 +93,7 @@ Incrementally layer SEO infrastructure onto the existing React/TypeScript SPA. T
     - For each route path in `routeManifest`, render the `SEO` component with the matching config; extract the `<link rel="canonical" href>` value; verify it equals `https://ecommittra.com{path}` (trailing slash normalised)
     - **Validates: Requirements 1.6, 7.5**
 
-- [~] 6. Checkpoint — Meta_Manager integration
+- [x] 6. Checkpoint — Meta_Manager integration
   - Ensure all tests pass; confirm the homepage, an example service page, and an example core page all render with correct `<title>`, `<meta name="description">`, and `<link rel="canonical">` in the browser DevTools head panel. Ask the user if questions arise.
 
 - [x] 7. Implement `src/seo/SchemaInjector.tsx` — Schema_Injector component
@@ -125,102 +125,102 @@ Incrementally layer SEO infrastructure onto the existing React/TypeScript SPA. T
     - For P13: generate arbitrary FAQ arrays; verify schema item count and text match
     - **Validates: Requirements 5.5, 6.1, 6.4, 6.2**
 
-- [~] 8. Checkpoint — Schema_Injector integration
+- [x] 8. Checkpoint — Schema_Injector integration
   - Ensure all tests pass; validate homepage and one service page against Google Rich Results Test (or schema.org validator) to confirm zero errors for Organization, LocalBusiness, FAQPage, and Service types. Ask the user if questions arise.
 
-- [ ] 9. Build city landing page infrastructure
-  - [~] 9.1 Implement `src/lib/cityPageData.ts` — content registry
+- [x] 9. Build city landing page infrastructure
+  - [x] 9.1 Implement `src/lib/cityPageData.ts` — content registry
     - Define the `CityPageData` interface (fields: `serviceSlug`, `serviceName`, `city`, `citySlug`, `seoConfig`, `intro`, `whyChooseContent`, `localChallenges`, `processContent`, `faq`, `parentServiceHref`)
     - Populate all 21 entries (7 services × 3 cities: Delhi, Mumbai, Bangalore) with unique content for each section
     - Each entry's combined text fields (`intro` + `whyChooseContent` + `localChallenges` + `processContent` + FAQ answers) must total ≥ 800 words when rendered
     - No two entries may share more than 30% Jaccard trigram similarity in their combined body text
     - _Requirements: 7.1, 7.2, 7.4, 7.10_
 
-  - [~] 9.2 Implement `src/pages/services/CityLandingPage.tsx` — template component
+  - [x] 9.2 Implement `src/pages/services/CityLandingPage.tsx` — template component
     - Accept `{ data: CityPageData }` prop
     - Render: `<SEO config={data.seoConfig} />`, `<SchemaInjector>` with a city-specific `Service` schema where `areaServed` includes the specific city plus the five primary cities
     - Render sections: hero/intro, why-choose (city-specific), local challenges, process, FAQ accordion, internal links to parent service page and `/contact`
     - Render a 404-equivalent and log an error if `data` is undefined
     - _Requirements: 7.1, 7.5, 7.7, 7.9_
 
-  - [~] 9.3 Write property tests for city landing page content
+  - [x] 9.3 Write property tests for city landing page content
     - **Property 14: City page body text ≥ 800 words and pairwise similarity < 30%**
     - For each city page entry: count words in combined body content and assert ≥ 800
     - For each pair of city page entries: compute Jaccard trigram similarity and assert < 0.30
     - **Validates: Requirements 7.2, 7.4**
 
-  - [~] 9.4 Add 21 city landing page routes to `src/App.tsx`
+  - [x] 9.4 Add 21 city landing page routes to `src/App.tsx`
     - Import `CityLandingPage` and add one `<Route>` per entry in `cityPages` following the pattern `/services/{serviceSlug}-{citySlug}`
     - Pass the matching `cityPages[slug]` data object as a prop
     - _Requirements: 7.6_
 
-- [~] 10. Checkpoint — City landing pages
+- [x] 10. Checkpoint — City landing pages
   - Ensure all tests pass; verify at least three city landing pages render correctly in the browser with unique titles, correct canonical tags, Service JSON-LD with city-specific `areaServed`, and at least two internal links. Ask the user if questions arise.
 
-- [~] 11. Build-time sitemap generator
-  - [~] 11.1 Create `scripts/generate-sitemap.ts`
+- [x] 11. Build-time sitemap generator
+  - [x] 11.1 Create `scripts/generate-sitemap.ts`
     - Node.js script that imports `CORE_ROUTES`, `SERVICE_SLUGS`, and `CITY_COMBINATIONS` from `routeManifest.ts`
     - Produces `public/sitemap.xml` with correct `<loc>`, `<lastmod>` (current date), `<changefreq>`, and `<priority>` values per the priority table in the design
     - Exits with non-zero status code if any route cannot be resolved (causes Netlify build to fail)
     - _Requirements: 1.2, 7.8_
 
-  - [~] 11.2 Add `generate:sitemap` script to `package.json` and update Netlify build command
+  - [x] 11.2 Add `generate:sitemap` script to `package.json` and update Netlify build command
     - Add `"generate:sitemap": "tsx scripts/generate-sitemap.ts"` to `package.json` scripts
     - Update `netlify.toml` build command to `npm run generate:sitemap && npm run build`
     - Install `tsx@^4.19.2` as a dev dependency for running TypeScript scripts in Node
     - _Requirements: 1.2, 1.3_
 
-  - [~] 11.3 Write unit tests for sitemap generator
+  - [x] 11.3 Write unit tests for sitemap generator
     - Verify sitemap output includes all 49 expected URLs (6 core + 22 service + 21 city)
     - Verify each entry has `loc`, `lastmod`, `changefreq`, and `priority`
     - Verify city landing page entries have `priority="0.8"` and `changefreq="monthly"`
     - _Requirements: 1.2, 7.8_
 
-- [~] 12. Implement robots.txt and redirects validation script
-  - [~] 12.1 Create `scripts/validate-static-files.ts`
+- [x] 12. Implement robots.txt and redirects validation script
+  - [x] 12.1 Create `scripts/validate-static-files.ts`
     - Check that `public/robots.txt` contains a `Sitemap:` directive pointing to `https://ecommittra.com/sitemap.xml` (Req 1.1)
     - Check that `public/robots.txt` has no `Disallow` rules blocking `.js`, `.css`, or image file extensions (Req 12.7)
     - Check that `public/_redirects` contains no rule redirecting traffic away from the canonical domain (Req 9.6)
     - Exit with non-zero status on any failure; print a human-readable error message
     - _Requirements: 1.1, 9.6, 12.7_
 
-  - [~] 12.2 Add `validate:static` script to `package.json` and integrate into Netlify build
+  - [x] 12.2 Add `validate:static` script to `package.json` and integrate into Netlify build
     - Add `"validate:static": "tsx scripts/validate-static-files.ts"` to `package.json` scripts
     - Update `netlify.toml` build command to `npm run validate:static && npm run generate:sitemap && npm run build`
     - _Requirements: 1.1, 9.6_
 
-- [~] 13. Implement content audit scripts
-  - [~] 13.1 Create `scripts/audit-headings.ts`
+- [x] 13. Implement content audit scripts
+  - [x] 13.1 Create `scripts/audit-headings.ts`
     - Parse all service page components in `src/pages/services/` and `CityLandingPage.tsx` for JSX heading elements
     - Report any page missing exactly one `<h1>`, any page where a `<h3>` or deeper appears before the first `<h2>`, any `<h1>` not containing the page's `primaryKeyword`
     - Add `"audit:headings": "tsx scripts/audit-headings.ts"` to `package.json`
     - _Requirements: 4.1, 4.2, 4.3_
 
-  - [~] 13.2 Create `scripts/audit-images.ts`
+  - [x] 13.2 Create `scripts/audit-images.ts`
     - Parse all TSX source files in `src/` for `<img>` elements
     - Report any `<img>` missing `alt`, `width`, `height`, or `loading` attributes
     - Report any `<img>` whose `alt` text matches the page `<title>` verbatim
     - Add `"audit:images": "tsx scripts/audit-images.ts"` to `package.json`
     - _Requirements: 2.4, 2.5, 4.4, 4.5_
 
-  - [~] 13.3 Create `scripts/audit-links.ts`
+  - [x] 13.3 Create `scripts/audit-links.ts`
     - Parse all service page components for internal `<a href="...">` elements
     - Report any service page or city landing page with fewer than two internal links
     - For city landing pages, verify at least one link points to the parent service slug and at least one points to `/contact`
     - Add `"audit:links": "tsx scripts/audit-links.ts"` to `package.json`
     - _Requirements: 4.6, 7.9_
 
-  - [~] 13.4 Add a combined `audit:seo` script to `package.json`
+  - [x] 13.4 Add a combined `audit:seo` script to `package.json`
     - `"audit:seo": "npm run audit:headings && npm run audit:images && npm run audit:links"`
     - _Requirements: 4.1–4.6, 7.9_
 
-- [~] 14. Update `src/components/Footer.tsx` with NAP microdata
+- [x] 14. Update `src/components/Footer.tsx` with NAP microdata
   - Wrap the contact address block with `itemScope itemType="https://schema.org/LocalBusiness"` on the enclosing element
   - Add `itemProp` attributes: `name` on the brand name element, `telephone` on each phone link, `email` on the email link, `address` (nested `PostalAddress` itemscope) on the address span
   - Import and use `NAP` from `src/lib/constants.ts` for all contact values to ensure single source of truth
   - _Requirements: 8.1_
 
-- [~] 15. Final checkpoint — full integration
+- [x] 15. Final checkpoint — full integration
   - Ensure all tests pass (`npm run audit:seo` exits 0, all Vitest tests green)
   - Run `npm run generate:sitemap` and verify the generated `public/sitemap.xml` lists all 49 URLs
   - Run `npm run validate:static` and verify it exits 0

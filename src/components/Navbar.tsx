@@ -49,20 +49,29 @@ export default function Navbar() {
         <div className="container-main">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
-            <Link to="/" className="flex flex-col items-start">
-              <span className={cn(
-                'text-xl md:text-2xl font-display font-bold tracking-tight transition-colors',
-                isTransparent ? 'text-white' : 'text-text-primary'
-              )}>
-                <span className="text-primary">e</span>
-                <span>Committra</span>
-              </span>
-              <span className={cn(
-                'text-[10px] font-body transition-colors -mt-0.5',
-                isTransparent ? 'text-white/60' : 'text-text-secondary'
-              )}>
-                eCommerce Solutions
-              </span>
+            <Link to="/" className="flex items-center gap-2.5">
+              <img
+                src="/logo.png"
+                alt="eCommittra logo"
+                width={36}
+                height={36}
+                className="w-9 h-9 object-contain"
+              />
+              <div className="flex flex-col items-start">
+                <span className={cn(
+                  'text-xl md:text-2xl font-display font-bold tracking-tight transition-colors leading-none',
+                  isTransparent ? 'text-white' : 'text-text-primary'
+                )}>
+                  <span className="text-primary">e</span>
+                  <span>Committra</span>
+                </span>
+                <span className={cn(
+                  'text-[10px] font-body transition-colors',
+                  isTransparent ? 'text-white/60' : 'text-text-secondary'
+                )}>
+                  eCommerce Solutions
+                </span>
+              </div>
             </Link>
 
             {/* Desktop Nav */}
@@ -179,8 +188,17 @@ export default function Navbar() {
         <div className="fixed inset-0 z-50 bg-secondary lg:hidden">
           <div className="flex flex-col h-full">
             <div className="flex items-center justify-between p-4 border-b border-white/10">
-              <Link to="/" className="text-xl font-display font-bold text-white">
-                <span className="text-primary">e</span>committra
+              <Link to="/" className="flex items-center gap-2.5">
+                <img
+                  src="/logo.png"
+                  alt="eCommittra logo"
+                  width={32}
+                  height={32}
+                  className="w-8 h-8 object-contain"
+                />
+                <span className="text-xl font-display font-bold text-white">
+                  <span className="text-primary">e</span>committra
+                </span>
               </Link>
               <button onClick={() => setMobileOpen(false)} className="p-2 text-white">
                 <X className="w-6 h-6" />

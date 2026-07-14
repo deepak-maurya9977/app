@@ -172,30 +172,7 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Floating Metric Badges */}
-        <div className="hero-badge hero-badge--top-right animate-float" style={{ animationDelay: '0s' }}>
-          <span className="badge-icon">🛒</span>
-          <div>
-            <span className="badge-number">500+</span>
-            <span className="badge-label">Happy Sellers</span>
-          </div>
-        </div>
 
-        <div className="hero-badge hero-badge--bottom-left animate-float" style={{ animationDelay: '0.5s' }}>
-          <span className="badge-icon">⭐</span>
-          <div>
-            <span className="badge-number">4.9/5</span>
-            <span className="badge-label">Avg Rating</span>
-          </div>
-        </div>
-
-        <div className="hero-badge hero-badge--mid-right animate-float" style={{ animationDelay: '1s' }}>
-          <span className="badge-icon">📈</span>
-          <div>
-            <span className="badge-number">3x Growth</span>
-            <span className="badge-label">Avg Sales Boost</span>
-          </div>
-        </div>
 
         <div className="container-main relative z-10 py-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">

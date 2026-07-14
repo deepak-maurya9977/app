@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Instagram, Facebook, Youtube, Linkedin, Phone, MapPin, Mail } from 'lucide-react';
-import { BUSINESS } from '@/lib/constants';
+import { BUSINESS, NAP } from '@/lib/constants';
 
 export default function Footer() {
   const quickLinks = [
@@ -29,8 +29,15 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
           {/* Brand Column */}
           <div className="lg:col-span-1">
-            <Link to="/" className="inline-block">
-              <span className="text-2xl font-display font-bold">
+            <Link to="/" className="inline-flex items-center gap-2.5">
+              <img
+                src="/logo.png"
+                alt="eCommittra logo"
+                width={36}
+                height={36}
+                className="w-9 h-9 object-contain"
+              />
+              <span className="text-2xl font-display font-bold" itemProp="name">
                 <span className="text-primary">e</span>Committra
               </span>
             </Link>
@@ -88,8 +95,10 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact Us */}
-          <div>
+          {/* Contact Us — LocalBusiness microdata block (Requirement 8.1) */}
+          <div itemScope itemType="https://schema.org/LocalBusiness">
+            {/* Hidden machine-readable name mirrors the visible brand name in the Brand Column */}
+            <meta itemProp="name" content={NAP.name} />
             <h4 className="text-sm font-utility font-bold uppercase tracking-wider mb-5">
               Reach Us Directly
             </h4>
@@ -98,8 +107,12 @@ export default function Footer() {
                 <Phone className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="text-sm font-medium">{BUSINESS.phone1Label}</p>
-                  <a href={`tel:${BUSINESS.phone1}`} className="text-sm text-white/70 hover:text-primary transition-colors">
-                    {BUSINESS.phone1}
+                  <a
+                    href={`tel:${NAP.telephone}`}
+                    itemProp="telephone"
+                    className="text-sm text-white/70 hover:text-primary transition-colors"
+                  >
+                    {NAP.telephone}
                   </a>
                 </div>
               </li>
@@ -107,20 +120,43 @@ export default function Footer() {
                 <Phone className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="text-sm font-medium">{BUSINESS.phone2Label}</p>
-                  <a href={`tel:${BUSINESS.phone2}`} className="text-sm text-white/70 hover:text-primary transition-colors">
-                    {BUSINESS.phone2}
+                  <a
+                    href={`tel:${NAP.telephone2}`}
+                    itemProp="telephone"
+                    className="text-sm text-white/70 hover:text-primary transition-colors"
+                  >
+                    {NAP.telephone2}
                   </a>
                 </div>
               </li>
               <li className="flex items-start gap-3">
                 <Mail className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                <a href={`mailto:${BUSINESS.email}`} className="text-sm text-white/70 hover:text-primary transition-colors">
-                  {BUSINESS.email}
+                <a
+                  href={`mailto:${NAP.email}`}
+                  itemProp="email"
+                  className="text-sm text-white/70 hover:text-primary transition-colors"
+                >
+                  {NAP.email}
                 </a>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                <span className="text-sm text-white/70">{BUSINESS.address}</span>
+                <span
+                  itemScope
+                  itemType="https://schema.org/PostalAddress"
+                  itemProp="address"
+                  className="text-sm text-white/70"
+                >
+                  <span itemProp="streetAddress">{NAP.streetAddress}</span>
+                  {', '}
+                  <span itemProp="addressLocality">{NAP.addressLocality}</span>
+                  {', '}
+                  <span itemProp="addressRegion">{NAP.addressRegion}</span>
+                  {' '}
+                  <span itemProp="postalCode">{NAP.postalCode}</span>
+                  {', '}
+                  <span itemProp="addressCountry">{NAP.addressCountry}</span>
+                </span>
               </li>
             </ul>
           </div>

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Send, CheckCircle, AlertCircle } from 'lucide-react';
-import { sendEmail, isEmailJSConfigured } from '@/lib/emailjs';
 import { SERVICE_NAMES_FOR_DROPDOWN } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 
@@ -8,6 +7,13 @@ interface ContactFormProps {
   showService?: boolean;
   className?: string;
   compact?: boolean;
+}
+
+/** Encode form data as application/x-www-form-urlencoded for Netlify Forms */
+function encode(data: Record<string, string>): string {
+  return Object.entries(data)
+    .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+    .join('&');
 }
 
 export default function ContactForm({ showService = false, className = '', compact = false }: ContactFormProps) {
@@ -41,14 +47,20 @@ export default function ContactForm({ showService = false, className = '', compa
     e.preventDefault();
     if (!validate()) return;
 
-    if (!isEmailJSConfigured()) {
-      setStatus('error');
-      return;
-    }
-
     setStatus('loading');
     try {
-      await sendEmail(formData);
+      await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encode({
+          'form-name': 'contact',
+          firstName: formData.firstName,
+          email: formData.email,
+          phone: formData.phone,
+          service: formData.service,
+          message: formData.message,
+        }),
+      });
       setStatus('success');
       setFormData({ firstName: '', email: '', phone: '', service: '', message: '' });
       setCharCount(0);
@@ -67,7 +79,18 @@ export default function ContactForm({ showService = false, className = '', compa
   };
 
   return (
-    <form onSubmit={handleSubmit} className={cn('space-y-4', className)}>
+    <form
+      name="contact"
+      method="POST"
+      data-netlify="true"
+      data-netlify-honeypot="bot-field"
+      onSubmit={handleSubmit}
+      className={cn('space-y-4', className)}
+    >
+      {/* Required hidden inputs for Netlify Forms */}
+      <input type="hidden" name="form-name" value="contact" />
+      <input type="hidden" name="bot-field" />
+
       {status === 'success' && (
         <div className="flex items-center gap-2 bg-green-50 text-green-700 p-4 rounded-lg">
           <CheckCircle className="w-5 h-5 flex-shrink-0" />
@@ -78,7 +101,7 @@ export default function ContactForm({ showService = false, className = '', compa
         <div className="flex items-center gap-2 bg-red-50 text-red-700 p-4 rounded-lg">
           <AlertCircle className="w-5 h-5 flex-shrink-0" />
           <span className="text-sm font-medium">
-            {!isEmailJSConfigured() ? 'Our form isn\'t set up yet - please call +91 8821953915 directly and we\'ll sort you out immediately.' : 'Something went wrong on our end - sorry about that. Please call us at +91 8821953915 and we\'ll pick up right away.'}
+            Something went wrong on our end — sorry about that. Please call us at +91 8821953915 and we'll pick up right away.
           </span>
         </div>
       )}
